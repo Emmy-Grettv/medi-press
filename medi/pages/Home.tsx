@@ -1,24 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     View,
     ScrollView,
     TouchableOpacity,
-    Text, 
+    Text,
     Image as RImage
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
-import { Svg, Path, Rect, Circle, Defs, Image, Pattern, Use, G, ClipPath, Ellipse } from "react-native-svg";
+import { Svg, Path, Rect, Circle, Defs, Image, Pattern, Use, G, ClipPath, Ellipse, Line, Filter, FeFlood, FeBlend, FeGaussianBlur } from "react-native-svg";
 import { Link } from "expo-router";
 
 export const Home = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const [showSignOut, setShowSignOut] = useState(false);
 
     const handlePress = () => {
         navigation.navigate('NoNotifications')
     }
- 
+
+    const toggleSignOut = () => {
+        setShowSignOut(prevState => !prevState);
+    };
+
+    const handleSignOut = () => {
+        navigation.navigate('Onboarding')
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView
@@ -31,19 +40,68 @@ export const Home = () => {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30 }}>
                             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Hello, Jeanne</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10, alignItems: 'center' }}>
-                               <TouchableOpacity onPress={handlePress}>
-                               <Svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                    <Path d="M8.00004 25.3333V13.3333C8.00004 11.2116 8.8429 9.17678 10.3432 7.67649C11.8435 6.1762 13.8783 5.33334 16 5.33334C18.1218 5.33334 20.1566 6.1762 21.6569 7.67649C23.1572 9.17678 24 11.2116 24 13.3333V25.3333M8.00004 25.3333H24M8.00004 25.3333H5.33337M24 25.3333H26.6667M14.6667 29.3333H17.3334" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <Path d="M16.0001 5.33334C16.7365 5.33334 17.3334 4.73638 17.3334 4.00001C17.3334 3.26363 16.7365 2.66667 16.0001 2.66667C15.2637 2.66667 14.6667 3.26363 14.6667 4.00001C14.6667 4.73638 15.2637 5.33334 16.0001 5.33334Z" stroke="black" stroke-width="2.5" />
-                                    <Circle cx="23.5" cy="7.5" r="4.5" fill="black" />
-                                </Svg>
+                                <TouchableOpacity onPress={handlePress}>
+                                    <Svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                        <Path d="M8.00004 25.3333V13.3333C8.00004 11.2116 8.8429 9.17678 10.3432 7.67649C11.8435 6.1762 13.8783 5.33334 16 5.33334C18.1218 5.33334 20.1566 6.1762 21.6569 7.67649C23.1572 9.17678 24 11.2116 24 13.3333V25.3333M8.00004 25.3333H24M8.00004 25.3333H5.33337M24 25.3333H26.6667M14.6667 29.3333H17.3334" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <Path d="M16.0001 5.33334C16.7365 5.33334 17.3334 4.73638 17.3334 4.00001C17.3334 3.26363 16.7365 2.66667 16.0001 2.66667C15.2637 2.66667 14.6667 3.26363 14.6667 4.00001C14.6667 4.73638 15.2637 5.33334 16.0001 5.33334Z" stroke="black" stroke-width="2.5" />
+                                        <Circle cx="23.5" cy="7.5" r="4.5" fill="black" />
+                                    </Svg>
 
-                               </TouchableOpacity>
-                              <RImage source={require("@/assets/images/profile.png")} alt="Profile picture" />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={toggleSignOut}>
+                                    <RImage source={require("@/assets/images/profile.png")} alt="Profile picture" />
+                                </TouchableOpacity>
+                                {showSignOut && (
+                                    <View style={styles.signOutContainer}>
+                                        <View style={{ alignItems: 'center', justifyContent: 'center', gap: 2, marginBottom: 2 }}>
+                                            <RImage source={require("@/assets/images/profile.png")} alt="Profile picture" style={{ width: 27, height: 27 }} />
+                                            <Text style={styles.signOutText}>Jeanne IRAKOZE</Text>
+                                        </View>
+                                        <Svg width={146} height={3} viewBox="0 0 146 3" fill="none">
+                                            <Defs>
+                                                <Filter id="blurFilter" x="0" y="0" width="146" height="3" filterUnits="userSpaceOnUse" >
+                                                    <FeFlood floodOpacity="0" result="BackgroundImageFix" />
+                                                    <FeBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                                                    <FeGaussianBlur stdDeviation="0.5" result="effect1_foregroundBlur" />
+                                                </Filter>
+                                            </Defs>
+                                            <Line x1="1" y1="1.5" x2="145" y2="1.5" stroke="white" filter="url(#blurFilter)" />
+                                        </Svg>
+                                       
+                                        <View style={{  }}>
+                                        <TouchableOpacity onPress={handleSignOut} style={{ flexDirection: 'row',  alignItems: 'center', gap: 2, alignSelf: 'flex-start', paddingLeft: 4, paddingVertical: 5 }}>
+                                            <Svg width={18} height={18} viewBox="0 0 18 18" fill="none">
+                                                <G clipPath="url(#clip0)">
+                                                    <Path
+                                                        d="M12.25 6V4.5C12.25 4.10218 12.092 3.72064 11.8107 3.43934C11.5294 3.15804 11.1478 3 10.75 3H5.5C5.10218 3 4.72064 3.15804 4.43934 3.43934C4.15804 3.72064 4 4.10218 4 4.5V13.5C4 13.8978 4.15804 14.2794 4.43934 14.5607C4.72064 14.842 5.10218 15 5.5 15H10.75C11.1478 15 11.5294 14.842 11.8107 14.5607C12.092 14.2794 12.25 13.8978 12.25 13.5V12"
+                                                        stroke="white"
+                                                        strokeWidth={1.5}
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                    <Path
+                                                        d="M8.5 9H17.5M17.5 9L15.25 6.75M17.5 9L15.25 11.25"
+                                                        stroke="white"
+                                                        strokeWidth={1.5}
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </G>
+                                                <Defs>
+                                                    <ClipPath id="clip0">
+                                                        <Rect width={18} height={18} fill="white" />
+                                                    </ClipPath>
+                                                </Defs>
+                                            </Svg>
+                                            <Text style={styles.signOutText}> Sign Out</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                )}
                             </View>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 30, marginTop: 10 }}>
                         <Svg width={47} height={47} viewBox="0 0 47 47" fill="none">
                             <G clipPath="url(#clip0_116_348)">
                                 <Path
@@ -71,7 +129,7 @@ export const Home = () => {
                     </View>
                     <View style={{ marginBottom: 20 }}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30 }}>
-                            <View style={{ gap: 5,  }}>
+                            <View style={{ gap: 5, }}>
                                 <Text style={styles.heading}>Date Of Birth</Text>
                                 <Text style={styles.theText}>01 / 01 / 2000</Text>
                             </View>
@@ -81,7 +139,7 @@ export const Home = () => {
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30 }}>
-                            <View style={{ gap: 5,  }}>
+                            <View style={{ gap: 5, }}>
                                 <Text style={styles.heading}>National Identification Number </Text>
                                 <Text style={styles.theText}>122909010</Text>
                             </View>
@@ -91,7 +149,7 @@ export const Home = () => {
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 30 }}>
-                            <View style={{ gap: 5,  }}>
+                            <View style={{ gap: 5, }}>
                                 <Text style={styles.heading}>Insurance Provider</Text>
                                 <Text style={styles.theText}>Old Mutual Insurance</Text>
                             </View>
@@ -107,7 +165,7 @@ export const Home = () => {
                             <Text style={{ fontSize: 15, fontWeight: 'bold' }}>medical records.</Text>
                         </View>
                         <View style={{ display: 'flex', alignContent: 'center', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-                        <RImage source={require("@/assets/images/qr_code.png")}  />
+                            <RImage source={require("@/assets/images/qr_code.png")} />
                         </View>
                     </View>
                 </View>
@@ -168,12 +226,29 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#fff',
         fontWeight: 'bold'
-    }, 
+    },
     heading: {
         fontSize: 13,
         fontWeight: 'bold'
     },
     theText: {
         fontSize: 16
-    }
+    },
+    signOutContainer: {
+        position: 'absolute',
+        top: 50, // Adjust based on your layout
+        // left: 0,
+        right: 0,
+        backgroundColor: '#09363B',
+        paddingVertical: 10,
+        alignItems: 'center',
+        borderRadius: 16,
+        width: 155,
+        height: 99,
+    },
+    signOutText: {
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
 });

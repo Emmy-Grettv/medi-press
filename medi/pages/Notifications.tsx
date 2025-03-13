@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     },
     header: {
         display: "flex",
-        paddingTop: 50,
+        paddingTop: 35,
         paddingHorizontal: 30
     },
     iconButton: {
