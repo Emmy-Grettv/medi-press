@@ -3,8 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 
 interface InputFieldProps {
   label: string;
-  inputType: 'text' | 'email' | 'password';
- 
+  inputType: 'text' | 'email' | 'password'; // Include password option
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -12,12 +11,13 @@ const InputField: React.FC<InputFieldProps> = ({
   inputType,
 }) => {
   return (
-    <View style={[styles.container, ]}>
+    <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         style={styles.input}
         keyboardType={inputType === 'email' ? 'email-address' : 'default'}
         autoCapitalize="none"
+        secureTextEntry={inputType === 'password'} // Make the input secure if it's a password
       />
     </View>
   );
@@ -26,6 +26,7 @@ const InputField: React.FC<InputFieldProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    flex: 1,
   },
   label: {
     fontSize: 15,
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 28,
     paddingHorizontal: 16,
     fontSize: 16,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
 });
 
