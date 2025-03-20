@@ -17,7 +17,7 @@ export const Home = () => {
     const [showSignOut, setShowSignOut] = useState(false);
 
     const handlePress = () => {
-        navigation.navigate('NoNotifications')
+        navigation.navigate('Notifications')
     }
 
     const toggleSignOut = () => {
@@ -25,7 +25,7 @@ export const Home = () => {
     };
 
     const handleSignOut = () => {
-        navigation.navigate('Onboarding')
+        navigation.navigate('Signup')
     }
 
     return (
@@ -236,19 +236,24 @@ const styles = StyleSheet.create({
     },
     signOutContainer: {
         position: 'absolute',
-        top: 50, // Adjust based on your layout
-        // left: 0,
+        top: 50, 
         right: 0,
-        backgroundColor: '#09363B',
+        backgroundColor: '#09363B', 
         paddingVertical: 10,
         alignItems: 'center',
         borderRadius: 16,
         width: 155,
         height: 99,
+        elevation: 5, 
+        shadowColor: '#000', 
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
     },
     signOutText: {
         color: '#fff',
         fontSize: 12,
         fontWeight: 'bold',
+        paddingVertical: 2
     },
 });

@@ -52,13 +52,9 @@ export const Signup = () => {
                             />
 
                         </View>
-                        <View style={styles.submitwrapper}>
+                        <View style={styles.wrapper}>
                             <InputField
-                                label="First Name"
-                                inputType="text"
-                            />
-                            <InputField
-                                label="LastName"
+                                label="Username "
                                 inputType="text"
                             />
                         </View>
@@ -85,29 +81,29 @@ export const Signup = () => {
                             <Text style={{ fontSize: 12 }}>Use your affiliate’s identification number if you have none.</Text>
                         </View>
                         <ImageBackground
-      source={require('@/assets/images/bottom-bg.png')} // Replace with your actual image path
-      style={styles.backgroundWrapper}
-    >
-      <View style={styles.submitwrapper}>
-        <InputField label="Insurance Provider" inputType="text" />
-        <InputField label="Insurance ID" inputType="text" />
-      </View>
+                            source={require('@/assets/images/bottom-bg.png')} // Replace with your actual image path
+                            style={styles.backgroundWrapper}
+                        >
+                            <View style={styles.submitwrapper}>
+                                <InputField label="Insurance Provider" inputType="text" />
+                                <InputField label="Insurance ID" inputType="text" />
+                            </View>
 
-      <View style={styles.wrapper}>
-        <InputField label="Password" inputType="password" />
-      </View>
+                            <View style={styles.wrapper}>
+                                <InputField label="Password" inputType="password" />
+                            </View>
 
-      <View style={styles.wrapper}>
-        <InputField label="Confirm Password" inputType="password" />
-      </View>
-    <View style={styles.wrapperl}>
-    <CustomSubmitButton
-                                buttonText="Sign Up"
-                                onPress={handlePress}
-                            />
-    </View>
-    </ImageBackground>
-    
+                            <View style={styles.wrapper}>
+                                <InputField label="Confirm Password" inputType="password" />
+                            </View>
+                            <View style={styles.wrapperl}>
+                                <CustomSubmitButton
+                                    buttonText="Sign Up"
+                                    onPress={handleWelcome}
+                                />
+                            </View>
+                        </ImageBackground>
+
                     </View>
 
                 </ScrollView>
@@ -174,7 +170,7 @@ const styles = StyleSheet.create({
     backgroundWrapper: {
         flex: 1,
         paddingBottom: 40
-      },
+    },
 });
 
 export default Signup;

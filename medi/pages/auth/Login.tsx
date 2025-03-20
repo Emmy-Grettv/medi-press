@@ -11,7 +11,8 @@ import {
     SafeAreaView,
     KeyboardAvoidingView,
     Platform,
-    TextInput
+    TextInput,
+    TouchableOpacity
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -29,12 +30,12 @@ export const Login = () => {
     };
 
     const handleSignin = () => {
-      navigation.navigate('Login');
-  };
+        navigation.navigate('Login');
+    };
 
-  const handleWelcome = () => {
-    navigation.navigate('Welcome');
-};
+    const handleWelcome = () => {
+        navigation.navigate('Welcome');
+    };
 
     return (
         <View style={styles.container}>
@@ -69,16 +70,21 @@ export const Login = () => {
                                     />
                                 </View>
                                 <View style={styles.wrapper}>
-                                    <InputField 
+                                    <InputField
                                         label="Username"
                                         inputType="text"
                                     />
-                                    <InputField 
+                                    <InputField
                                         label="Password"
                                         inputType="password"
                                     />
                                     <View style={styles.wrap}>
-                                        <Link href="/" style={styles.link}>Forgot Password ?</Link>
+                                        <Text
+                                            style={styles.link}
+                                            onPress={() => navigation.navigate('Signup')}
+                                        >
+                                            Forgot Password?
+                                        </Text>
                                     </View>
                                     <CustomSubmitButton
                                         buttonText="Sign In"
